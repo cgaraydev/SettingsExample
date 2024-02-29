@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SettingsExample</string>
+    <string name="settings">Configuracion</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="push_notifications">Notificaciones push</string>
+    <string name="account">Cuenta</string>
+    <string name="language">Lenguaje</string>
+    <string name="accessibility">Accesibilidad</string>
+    <string name="report_a_bug">Reportar un bug</string>
+    <string name="help_and_faq">Ayuda y FAQ</string>
+    <string name="about_us">Sobre nostros</string>
+    <string name="english">Ingles</string>
+    <string name="spanish">Espanol</string>
+    <string name="french">Frances</string>
+    <string name="german">Aleman</string>
+    <string name="chinese">Chino</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+</resources>
