@@ -1,4 +1,4 @@
-package com.example.settingsexample
+package com.example.settingsexample.screens
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,15 +35,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.settingsexample.R
 import com.example.settingsexample.components.ActionIcon
 import com.example.settingsexample.components.CardItem
 import com.example.settingsexample.components.LanguageDialog
 import com.example.settingsexample.components.MySpacer
+import com.example.settingsexample.navigation.ScreensList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(navController: NavHostController) {
     Scaffold(topBar = {
         CenterAlignedTopAppBar(
             title = { Text(stringResource(R.string.settings)) },
@@ -62,13 +66,13 @@ fun SettingsScreen() {
             MySpacer(size = 30)
             SettingsHeader()
             MySpacer(size = 20)
-            SettingsBody()
+            SettingsBody(navController)
         }
     }
 }
 
 @Composable
-fun SettingsBody() {
+fun SettingsBody(navController: NavController) {
     var show by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
@@ -113,7 +117,8 @@ fun SettingsBody() {
         CardItem(
             icon = R.drawable.ic_bug_report,
             text = stringResource(R.string.report_a_bug),
-            actionIcon = ActionIcon.ARROW
+            actionIcon = ActionIcon.ARROW,
+            onItemClick = { navController.navigate(ScreensList.ReportABugScreen.name) }
         )
         CardItem(
             icon = R.drawable.ic_help,
@@ -123,7 +128,8 @@ fun SettingsBody() {
         CardItem(
             icon = R.drawable.ic_info,
             text = stringResource(R.string.about_us),
-            actionIcon = null
+            actionIcon = null,
+            onItemClick = { navController.navigate(ScreensList.AboutUsScreen.name) }
         )
     }
 }

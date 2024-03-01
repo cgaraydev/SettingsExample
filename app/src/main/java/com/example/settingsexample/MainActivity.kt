@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.settingsexample.navigation.SettingsNavigation
+import com.example.settingsexample.screens.ReportABugScreen
+import com.example.settingsexample.screens.SettingsScreen
 import com.example.settingsexample.ui.theme.SettingsExampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SettingsScreen()
+                    ReportABugScreen()
+//                    SettingsNavigation()
                 }
             }
         }

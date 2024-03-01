@@ -30,8 +30,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.settingsexample.DataStoreManager
-import com.example.settingsexample.DataStoreManager.languageSelection
+import com.example.settingsexample.data.DataStoreManager
+import com.example.settingsexample.data.DataStoreManager.languageSelection
 import com.example.settingsexample.R
 import com.example.settingsexample.util.changeLocales
 import com.example.settingsexample.util.getLocaleString
@@ -83,20 +83,20 @@ fun MySpacer(size: Int) {
 @Composable
 fun LanguageItem(
     language: String,
-    selectedLanguage: String,
-    onLanguageSelected: (String) -> Unit
+    isSelected: Boolean,
+    onLanguageSelected: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onLanguageSelected(language)
+                onLanguageSelected()
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(
-            selected = language == selectedLanguage,
-            onClick = { onLanguageSelected(language) })
+            selected = isSelected,
+            onClick = { onLanguageSelected() })
         MySpacer(20)
         Text(text = language)
     }
@@ -114,12 +114,14 @@ fun LanguageDialog(
         "Spanish",
         "Italian",
         "French",
-        "Portuguese",
+        "Portuguese"
     )
     var selectedLanguage by remember { mutableStateOf(languages[0]) }
+    var isSelectionLoaded by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         selectedLanguage = context.languageSelection.first() ?: languages[0]
+        isSelectionLoaded = true
     }
 
     LaunchedEffect(selectedLanguage) {
@@ -135,11 +137,11 @@ fun LanguageDialog(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.Center
                 ) {
-                    languages.forEach {
+                    languages.forEach { language ->
                         LanguageItem(
-                            language = it,
-                            selectedLanguage = selectedLanguage,
-                            onLanguageSelected = { language ->
+                            language = language,
+                            isSelected = language == selectedLanguage && isSelectionLoaded,
+                            onLanguageSelected = {
                                 selectedLanguage = language
                             })
                     }

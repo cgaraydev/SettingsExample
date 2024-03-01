@@ -1,4 +1,4 @@
-package com.example.settingsexample
+package com.example.settingsexample.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
