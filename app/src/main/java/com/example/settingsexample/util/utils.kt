@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.LocaleList
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.core.os.LocaleListCompat
 
 fun changeLocales(context: Context, localeString: String) {
@@ -25,3 +26,5 @@ fun getLocaleString(language: String): String {
         else -> "en"
     }
 }
+
+private val LocalDarkMode = staticCompositionLocalOf<Boolean> { error("No dark mode provided") }

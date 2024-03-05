@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,64 +35,72 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.settingsexample.components.MySpacer
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ReportABugScreen() {
+fun ReportABugScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var report by remember { mutableStateOf("") }
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-            .wrapContentSize(Alignment.Center)
-            .clip(RectangleShape)
-            .border(1.dp, Color.Gray)
-            .padding(20.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(16.dp)
+    Scaffold(
+        topBar = { MyTopAppBar(title = "Bug report", navController = navController) }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(20.dp)
+                .wrapContentSize(Alignment.Center)
+                .clip(RectangleShape)
+                .border(1.dp, Color.Gray)
+                .padding(20.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Report a Bug",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            if (keyboardController != null) {
-                EmailTextField(
-                    email = email,
-                    onEmailChange = { email = it },
-                    keyboardController = keyboardController
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Help us improve!",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
-            }
-            MySpacer(size = 16)
-            if (keyboardController != null) {
-                BugReportTextField(
-                    report = report,
-                    onReportChange = { report = it },
-                    keyboardController = keyboardController
-                )
-            }
-            MySpacer(size = 20)
-            Button(
-                onClick = {
-                    if (isValidEmail(email) && isValidReport(report)) {
-                        Toast.makeText(context, "Report Submitted", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        Toast.makeText(context, "Invalid Email or Report", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }) {
-                Text(text = "Submit")
+                if (keyboardController != null) {
+                    EmailTextField(
+                        email = email,
+                        onEmailChange = { email = it },
+                        keyboardController = keyboardController
+                    )
+                }
+                MySpacer(size = 16)
+                if (keyboardController != null) {
+                    BugReportTextField(
+                        report = report,
+                        onReportChange = { report = it },
+                        keyboardController = keyboardController
+                    )
+                }
+                MySpacer(size = 20)
+                Button(
+                    onClick = {
+                        if (isValidEmail(email) && isValidReport(report)) {
+                            Toast.makeText(context, "Report Submitted", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(context, "Invalid Email or Report", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }) {
+                    Text(text = "Submit")
+                }
             }
         }
+
     }
+
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

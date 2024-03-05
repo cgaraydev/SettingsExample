@@ -22,7 +22,7 @@ fun SettingsNavigation() {
             AboutUsScreen(navController)
         }
         composable(ScreensList.ReportABugScreen.name){
-            ReportABugScreen()
+            ReportABugScreen(navController)
         }
     }
 }
