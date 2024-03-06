@@ -21,12 +21,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.settingsexample.R
+import com.example.settingsexample.ui.theme.SettingsExampleTheme
 
 @Composable
-fun AboutUsScreen(navController: NavHostController) {
+fun AboutUsScreen(navController: NavHostController, darkMode: Boolean) {
     Scaffold(
         topBar = {
-            MyTopAppBar(title = "About Us", navController = navController)
+            MyTopAppBar(title = "About Us", navController = navController, darkMode = darkMode)
         },
     ) {
         Box(modifier = Modifier.padding(it)) {
@@ -45,21 +46,25 @@ fun AboutUsScreen(navController: NavHostController) {
 @Composable
 fun MyTopAppBar(
     title: String,
-    navController: NavController
+    navController: NavController,
+    darkMode: Boolean
 ) {
-    CenterAlignedTopAppBar(
-        title = { Text(text = title) },
-        navigationIcon = {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "",
-                modifier = Modifier
-                    .clickable { navController.popBackStack() }
-                    .padding(start = 10.dp)
+    SettingsExampleTheme(darkTheme = darkMode) {
+        CenterAlignedTopAppBar(
+            title = { Text(text = title) },
+            navigationIcon = {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable { navController.popBackStack() }
+                        .padding(start = 10.dp)
+                )
+            },
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color.LightGray,
             )
-        },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.LightGray,
         )
-    )
+    }
+
 }

@@ -9,7 +9,7 @@ import com.example.settingsexample.screens.ReportABugScreen
 import com.example.settingsexample.screens.SettingsScreen
 
 @Composable
-fun SettingsNavigation() {
+fun SettingsNavigation(darkMode: Boolean) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -19,10 +19,10 @@ fun SettingsNavigation() {
             SettingsScreen(navController)
         }
         composable(ScreensList.AboutUsScreen.name) {
-            AboutUsScreen(navController)
+            AboutUsScreen(navController, darkMode)
         }
         composable(ScreensList.ReportABugScreen.name){
-            ReportABugScreen(navController)
+            ReportABugScreen(navController, darkMode)
         }
     }
 }

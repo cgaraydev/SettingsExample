@@ -44,12 +44,15 @@ fun CardItem(
     actionIcon: ActionIcon?,
     onItemClick: () -> Unit = {}
 ) {
-    var isOn by remember { mutableStateOf(true) }
+    var isOn by remember { mutableStateOf(false) }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(Color.White)
-            .clickable { onItemClick() }
+            .clickable {
+                isOn = !isOn
+                onItemClick()
+            }
             .padding(start = 16.dp, end = 20.dp, top = 10.dp, bottom = 12.dp)
     ) {
         Icon(painter = painterResource(id = icon), contentDescription = "")
@@ -60,7 +63,7 @@ fun CardItem(
 
             ActionIcon.SWITCH -> Switch(
                 checked = isOn,
-                onCheckedChange = { isOn = !isOn },
+                onCheckedChange = { isOn = it },
                 modifier = Modifier.size(30.dp)
             )
 

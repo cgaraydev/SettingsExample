@@ -40,13 +40,13 @@ import com.example.settingsexample.components.MySpacer
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ReportABugScreen(navController: NavController) {
+fun ReportABugScreen(navController: NavController, darkMode: Boolean) {
     var email by remember { mutableStateOf("") }
     var report by remember { mutableStateOf("") }
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     Scaffold(
-        topBar = { MyTopAppBar(title = "Bug report", navController = navController) }
+        topBar = { MyTopAppBar(title = "Bug report", navController = navController, darkMode = darkMode) }
     ) { paddingValues ->
         Box(
             modifier = Modifier

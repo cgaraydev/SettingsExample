@@ -15,15 +15,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -48,31 +43,30 @@ import com.example.settingsexample.components.MySpacer
 import com.example.settingsexample.navigation.ScreensList
 import com.example.settingsexample.ui.theme.SettingsExampleTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavHostController) {
     var darkMode by remember { mutableStateOf(false) }
     Scaffold(topBar = {
-        CenterAlignedTopAppBar(
-            title = { Text(stringResource(R.string.settings)) },
-            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
-                titleContentColor = MaterialTheme.colorScheme.onBackground
-            )
+        MyTopAppBar(
+            title = "Settings",
+            navController = navController,
+            darkMode = darkMode
         )
     }) { paddingValues ->
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            MySpacer(size = 30)
-            SettingsHeader()
-            MySpacer(size = 20)
-            SettingsExampleTheme(darkTheme = darkMode) {
-                SettingsBody(navController, darkMode) {
-                    darkMode = it
+        SettingsExampleTheme(darkTheme = darkMode) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                MySpacer(size = 30)
+                SettingsHeader(darkMode)
+                MySpacer(size = 20)
+                SettingsExampleTheme(darkTheme = darkMode) {
+                    SettingsBody(navController, darkMode) {
+                        darkMode = it
+                    }
                 }
             }
         }
@@ -160,7 +154,7 @@ fun SettingsBody(
 }
 
 @Composable
-fun SettingsHeader() {
+fun SettingsHeader(darkMode: Boolean) {
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val launcher =
         rememberLauncherForActivityResult(
@@ -168,7 +162,7 @@ fun SettingsHeader() {
         ) { uri: Uri? ->
             imageUri = uri
         }
-    SettingsExampleTheme {
+    SettingsExampleTheme(darkTheme = darkMode) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -214,7 +208,7 @@ fun SettingsHeader() {
                 }
                 MySpacer(size = 10)
                 Text(
-                    text = "dasdasda",
+                    text = "user54678",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
